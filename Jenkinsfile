@@ -16,19 +16,22 @@ pipeline {
 
         stage('Merge if Successful') {
             when {
-                branch 'Development'
+                branch 'origin/Development'
             }
             steps {
                 script {
                     def targetBranch = 'main'
                     bat """
-                        git config user.name "jenkins-bot"
-                        git config user.email "jenkins@example.com"
+                        git config user.name "Sridhar-Ghr"
+                        git config user.email "sridhar.cisms@gmail.com"
                         git checkout ${targetBranch}
                         git merge ${env.GIT_BRANCH}
                         git push origin ${targetBranch}
                     """
-                }
+                        }
+                  }    
+            steps{
+                echo "Branch name: ${env.BRANCH_NAME}"
             }
         }
     }
