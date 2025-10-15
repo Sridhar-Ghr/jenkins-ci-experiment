@@ -4,39 +4,32 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checking out the code...'
                 checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                echo 'Building the application...'
                 sh 'mvn clean install'
             }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Running unit tests...'
-                sh 'mvn test'
+        stage('Merge if Successful') {
+            when {
+                branch 'Development'
             }
-        }
-
-        stage('Package') {
             steps {
-                echo 'Packaging the build...'
-                sh 'mvn package'
+                script {
+                    def targetBranch = 'main'
+                    sh """
+                        git config user.name "jenkins-bot"
+                        git config user.email "jenkins@example.com"
+                        git checkout ${targetBranch}
+                        git merge ${env.GIT_BRANCH}
+                        git push origin ${targetBranch}
+                    """
+                }
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build completed successfully!'
-        }
-        failure {
-            echo 'Build failed. Please check logs.'
         }
     }
 }
