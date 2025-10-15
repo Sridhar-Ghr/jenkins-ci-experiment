@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build & Test') {
             steps {
-                sh 'mvn clean install'
+                bat 'mvn clean install'
             }
         }
 
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
                     def targetBranch = 'main'
-                    sh """
+                    bat """
                         git config user.name "jenkins-bot"
                         git config user.email "jenkins@example.com"
                         git checkout ${targetBranch}
