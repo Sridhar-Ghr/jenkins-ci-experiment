@@ -15,25 +15,25 @@ pipeline {
         }
 
         stage('Merge if Successful') {
-            when {
-                branch 'origin/Development'
-            }
-            steps {
-                script {
-                    def targetBranch = 'main'
-                    bat """
-                        git config user.name "Sridhar-Ghr"
-                        git config user.email "sridhar.cisms@gmail.com"
-                        git checkout ${targetBranch}
-                        git merge ${env.GIT_BRANCH}
-                        git push origin ${targetBranch}
-                    """
-                        }
-                     
-            steps{
-                echo "Branch name: ${env.BRANCH_NAME}"
-               }
-            }
+    when {
+        expression {
+            return env.BRANCH_NAME == 'Development'
         }
+    }
+    steps {
+        script {
+            def targetBranch = 'main'
+            echo "Branch name: ${env.BRANCH_NAME}"
+            bat """
+                git config user.name "Sridhar-Ghr"
+                git config user.email "sridhar.cisms@gmail.com"
+                git fetch origin
+                git checkout ${targetBranch}
+                git merge origin/${env.BRANCH_NAME}
+                git push origin ${targetBranch}
+            """
+        }
+    }
+}
     }
 }
