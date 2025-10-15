@@ -29,9 +29,10 @@ pipeline {
                         git push origin ${targetBranch}
                     """
                         }
-                  }    
+                     
             steps{
                 echo "Branch name: ${env.BRANCH_NAME}"
+               }
             }
         }
     }
