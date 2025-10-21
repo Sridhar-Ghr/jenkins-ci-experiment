@@ -15,13 +15,24 @@ pipeline {
         }
 
         stage('Merge if Successful') {
-    when {
+        when {
         expression {
-            def branch = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-            echo "Current Git branch: ${branch}"
-            return branch == 'development'
+            return script {
+                // Try Jenkins-provided env vars
+                def branchName = env.BRANCH_NAME ?: env.GIT_BRANCH
+
+                // If still null or 'HEAD', parse from git manually
+                if (!branchName || branchName == 'HEAD') {
+                    def ref = bat(script: 'git symbolic-ref --short HEAD || git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+                    branchName = ref
+                }
+
+                echo "Resolved branch name: ${branchName}"
+                return branchName == 'development'
+            }
         }
     }
+
     steps {
         script {
             def targetBranch = 'main'
