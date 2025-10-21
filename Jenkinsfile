@@ -17,7 +17,7 @@ pipeline {
         stage('Merge if Successful') {
     when {
         expression {
-            return env.BRANCH_NAME == 'Development'
+            return env.BRANCH_NAME == 'development'
         }
     }
     steps {
