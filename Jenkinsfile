@@ -17,7 +17,9 @@ pipeline {
         stage('Merge if Successful') {
     when {
         expression {
-            return env.BRANCH_NAME == 'development'
+            def branch = bat(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+            echo "Current Git branch: ${branch}"
+            return branch == 'development'
         }
     }
     steps {
