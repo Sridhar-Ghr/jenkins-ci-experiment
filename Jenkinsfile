@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+            stage('Setup') {
+            steps {
+                bat 'git config --global --add safe.directory "C:/ProgramData/Jenkins/.jenkins/workspace/"'
+            }
+        }
         stage('Checkout') {
             steps {
                 checkout scm
