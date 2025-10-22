@@ -54,12 +54,13 @@ pipeline {
                     echo "Merging ${sourceBranch} into ${targetBranch}"
 
                     bat """
-                        git config user.name "Sridhar-Ghr"
-                        git config user.email "sridhar.cisms@gmail.com"
-                        git fetch origin
-                        git checkout ${targetBranch}
-                        git merge origin/${sourceBranch}
-                        git push origin ${targetBranch}
+                git config user.name "Sridhar-Ghr"
+                git config user.email "sridhar.cisms@gmail.com"
+                git fetch origin
+                git checkout ${targetBranch}
+                git merge origin/${sourceBranch}
+                git remote set-url origin https://Sridhar-Ghr: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@github.com/Sridhar-Ghr/jenkins-ci-experiment.git
+                git push origin ${targetBranch}
                     """
                 }
             }
