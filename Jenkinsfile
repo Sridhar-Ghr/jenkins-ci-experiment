@@ -59,7 +59,7 @@ pipeline {
                 git fetch origin
                 git checkout ${targetBranch}
                 git merge origin/${sourceBranch}
-                git remote set-url origin https://@github.com/Sridhar-Ghr/jenkins-ci-experiment.git
+                git remote set-url origin https://github.com/Sridhar-Ghr/jenkins-ci-experiment.git
                 git push origin ${targetBranch}
                     """
                 }
