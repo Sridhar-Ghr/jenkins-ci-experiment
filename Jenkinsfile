@@ -55,7 +55,7 @@ pipeline {
                     echo "Merging ${sourceBranch} into ${targetBranch}"
 
                     // Securely use GitHub credentials stored in Jenkins
-                    withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+                    withCredentials([usernamePassword(credentialsId: '91b02c51-091d-477a-a64e-f110655c53ed', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
                         bat """
                             git config user.name "Sridhar-Ghr"
                             git config user.email "sridhar.cisms@gmail.com"
