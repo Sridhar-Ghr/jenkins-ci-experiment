@@ -3,8 +3,6 @@ package com.example;
 public class App {
     public static void main(String[] args) {
         System.out.println("Hello from Jenkins CI demo!");
-        System.out.println("Added this statement when Development branch is created");
-        System.out.println("Added this statement after Development branch deleted and development branch created");
-        System.out.println("Statement for a test commit");
+        System.out.println("We are able to run the Jenkins pipeline for continuous integration successfully");
     }
 }
